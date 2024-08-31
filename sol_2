@@ -1,0 +1,121 @@
+                                    // Question-2
+/*
+ Overload the function Multiply written in the previous exercise 
+ so that it may be used to multiply:
+ (a) a vector and a matrix of given sizes;
+ (b) a matrix and a vector of given sizes;
+ (c) a scalar and a matrix of a given size; and
+ (d) a matrix of a given size and a scalar.
+*/
+#include <iostream>
+using namespace std;
+const int Size = 50;
+
+// Function to multiply a vector (1xM) with a matrix (MxN)
+void Multiply(const int vec[], const int mat[][Size], int result[], int N) {
+    for (int j = 0; j < N; j++) {
+        result[j] = 0;
+        for (int k = 0; k < N; k++) {
+            result[j] += vec[k] * mat[k][j];
+        }
+    }
+}
+
+// Function to multiply a matrix (MxN) with a vector (Nx1)
+void Multiply(const int mat[][Size], const int vec[], int result[], int M, int N) {
+    for (int i = 0; i < M; i++) {
+        result[i] = 0;
+        for (int j = 0; j < N; j++) {
+            result[i] += mat[i][j] * vec[j];
+        }
+    }
+}
+
+// Function to multiply a scalar with a matrix (MxN)
+void Multiply(int scalar, const int mat[][Size], int result[][Size], int M, int N) {
+    for (int i = 0; i < M; i++) {
+        for (int j = 0; j < N; j++) {
+            result[i][j] = scalar * mat[i][j];
+        }
+    }
+}
+
+// Function to multiply a matrix (MxN) with a scalar
+void Multiply(const int mat[][Size], int scalar, int result[][Size], int M, int N) {
+    for (int i = 0; i < M; i++) {
+        for (int j = 0; j < N; j++) {
+            result[i][j] = mat[i][j] * scalar;
+        }
+    }
+}
+
+int main() {
+    int rowA, columnA, scalar;
+
+    cout << "Enter the number of rows and columns of matrix A: ";
+    cin >> rowA >> columnA;
+
+    int A[Size][Size];
+    int input_vector[Size];
+    int result_vector[Size];
+    int result_matrix[Size][Size];
+
+    cout << "Enter elements of matrix A:" << endl;
+    for (int i = 0; i < rowA; i++) {
+        for (int j = 0; j < columnA; j++) {
+            cout << "A[" << i << "][" << j << "] = ";
+            cin >> A[i][j];
+        }
+    }
+
+    cout << "Enter elements of input vector of (size " << columnA << "):" << endl;
+    for (int i = 0; i < columnA; i++) {
+        cout << "input_vector[" << i << "] = ";
+        cin >> input_vector[i];
+    }
+
+    // Part (a): Vector-matrix multiplication
+    Multiply(input_vector, A, result_vector, columnA);
+    cout << "Vector-matrix multiplication result:" << endl;
+    for (int i = 0; i < columnA; i++) {
+        cout << result_vector[i] << " ";
+    }
+    cout << endl;
+
+    // Part (b): Matrix-vector multiplication
+    if (rowA == columnA) {
+        Multiply(A, input_vector, result_vector, rowA, columnA);
+        cout << "Matrix-vector multiplication result:" << endl;
+        for (int i = 0; i < rowA; i++) {
+            cout << result_vector[i] << " ";
+        }
+        cout << endl;
+    } else {
+        cout << "Matrix-vector multiplication not possible..." << endl;
+    }
+
+    cout << "Enter a scalar value as c: ";
+    cin >> scalar;
+
+    // Part (c): Scalar-matrix multiplication
+    Multiply(scalar, A, result_matrix, rowA, columnA);
+    cout << "Matrix after scalar multiplication c*A:" << endl;
+    for (int i = 0; i < rowA; i++) {
+        for (int j = 0; j < columnA; j++) {
+            cout << result_matrix[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+    // Part (d): Matrix-scalar multiplication
+    Multiply(A, scalar, result_matrix, rowA, columnA);
+    cout << "Matrix after scalar multiplication A*c:" << endl;
+    for (int i = 0; i < rowA; i++) {
+        for (int j = 0; j < columnA; j++) {
+            cout << result_matrix[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
