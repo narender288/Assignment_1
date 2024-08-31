@@ -1,0 +1,73 @@
+                                // Question -1
+/* 
+Write a function Multiply that may be used to multiply two matrices 
+given the matrices and the size of both matrices. Use assertion to 
+verify that the matrices are of suitable sizes to be multiplied.
+*/
+#include <iostream>
+#include <cassert>
+using namespace std;
+const int Size = 50; // Lets take the size of Matrix to be 50.
+// Define Multipy function as given below,
+void Multiply(int A[Size][Size], int B[Size][Size], int C[Size][Size], int rowA, int columnA, int rowB, int columnB) {
+    assert(columnA == rowB); // only work if it follow.
+
+    for (int i = 0; i < rowA; ++i) {
+        for (int j = 0; j < columnB; ++j) {
+            C[i][j] = 0;
+            for (int k = 0; k < columnA; ++k) {
+                C[i][j] += A[i][k] * B[k][j];
+            }
+        }
+    }
+}
+
+int main() {
+    int rowA, columnA, rowB, columnB;
+
+    cout << "Enter the number of rows and columns of matrix A: ";
+    cin >> rowA >> columnA;
+
+    cout << "Enter the number of rows and columns of matrix B: ";
+    cin >> rowB >> columnB;
+
+    if (columnA != rowB) {
+        cout << "Matrix Multiplication not possible " << endl;
+        return 1;
+    }
+
+    int A[Size][Size], B[Size][Size], C[Size][Size];
+
+    cout << "Elements of matrix A:" << endl;
+    for (int i = 0; i < rowA; ++i) {
+        for (int j = 0; j < columnA; ++j) {
+            cout << "A[" << i << "][" << j << "] = ";
+            cin >> A[i][j];
+        }
+    }
+
+    cout << "Elements of matrix B:" << endl;
+    for (int i = 0; i < rowB; ++i) {
+        for (int j = 0; j < columnB; ++j) {
+            cout << "B[" << i << "][" << j << "] = ";
+            cin >> B[i][j];
+        }
+    }
+    
+    Multiply(A, B, C, rowA, columnA, rowB, columnB);
+
+    cout << "The result of the matrix multiplication is:" << endl;
+    for (int i = 0; i < rowA; ++i) {
+        for (int j = 0; j < columnB; ++j) {
+            cout << C[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
+        cout << endl;
+    }
+
+    return 0;
+}
