@@ -1,0 +1,43 @@
+                 // Question-3
+#include <iostream>
+using namespace std;
+
+// Define Power Function , to determine the power of any number.
+double power(double a, int b) {
+    double result = 1;  // initial value 1 as in case of multiplication.
+    for (int i = 0; i < b; ++i) {
+        result *= a;
+    }
+    return result;
+}
+
+// define function norm2 for finding norm for p =2.
+double norm2(const double* array, int size) {
+    double norm = 0;
+    for (int i = 0; i < size; i++) {
+        norm += array[i] * array[i];
+    }
+    return power(norm, 0.5);
+}
+
+int main() {
+    int size;
+
+    cout << "Enter the size of the vector: ";
+    cin >> size;
+
+    double array[size];  // Using stack allocation for simplicity
+
+    cout << "Enter the elements of the vector:" << endl;
+    for (int i = 0; i < size; i++) {
+        cout << "Element " << i + 1 << ": ";
+        cin >> array[i];
+    }
+    
+// call function..
+    double norm = norm2(array, size);
+
+    cout << "The 2-norm of the vector is: " << norm << endl;
+
+    return 0;
+}
